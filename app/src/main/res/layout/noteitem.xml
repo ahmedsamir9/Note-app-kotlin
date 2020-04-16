@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        swipe:layout_constraintStart_toStartOf="parent"
+        swipe:layout_constraintTop_toTopOf="parent"
+        swipe:leftEdgeSwipeOffset="0dp"
+        swipe:rightEdgeSwipeOffset="0dp">
+
+        <!--Bottom View For Right to Left-->
+
+        <LinearLayout
+            android:id="@+id/bottom_wrapper"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:weightSum="2">
+
+            <ImageView
+                android:id="@+id/tvedit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                swipe:srcCompat="@drawable/ic_update" />
+
+
+            <ImageView
+                android:id="@+id/tvDelete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D32F2F"
+                android:gravity="center"
+                swipe:srcCompat="@drawable/ic_delete" />
+        </LinearLayout>
+
+
+        <!-- Top View,  Row itemView of RecyclerView -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            >
+
+            <ImageView
+                android:id="@+id/pero"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/circle"
+                swipe:layout_constraintBottom_toTopOf="@+id/expandable_layout"
+
+                swipe:layout_constraintEnd_toEndOf="parent"
+                swipe:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tasktitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="task 1"
+
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                swipe:layout_constraintStart_toStartOf="parent"
+                swipe:layout_constraintTop_toTopOf="parent" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandable_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                app:el_duration="300"
+                app:el_expanded="false"
+                app:el_parallax="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                swipe:layout_constraintTop_toBottomOf="@+id/tasktitle">
+
+                <TextView
+                    android:id="@+id/dec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Fixed height"
+                    android:textSize="20sp" />
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.daimajia.swipe.SwipeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
