@@ -10,13 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AddNoteViewModel(application: Application) : AndroidViewModel(application) {
-    private val noteRepo = NoteRepo(application)
+class AddNoteViewModel(noteRepo: NoteRepo) : ViewModel() {
+    private val _noteRepo = noteRepo
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var job : Job? = null
     fun addNote(item: Note){
         job =coroutineScope.launch {
-            noteRepo.insertNote(item)
+            _noteRepo.insertNote(item)
 
         }
     }
