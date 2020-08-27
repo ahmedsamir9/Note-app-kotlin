@@ -4,19 +4,20 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.noteapp.Model.Note
 import com.example.noteapp.repo.NoteRepo
 import kotlinx.coroutines.*
 
-class NoteViewModel(application: Application) : AndroidViewModel(application)
+class NoteViewModel(noteRepo: NoteRepo) : ViewModel()
 {
-    private val noteRepo = NoteRepo(application)
+   val _noteRepo = noteRepo
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var job :Job? = null
     val notes  = MutableLiveData<MutableList<Note?>>()
     fun loadNotes(){
         job=coroutineScope.launch {
-            val data = noteRepo.getNotes()
+            val data = _noteRepo.getNotes()
             withContext(Dispatchers.Main){
                 notes.value = data
             }
@@ -27,7 +28,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application)
 
     fun deleteNOte(note:Note){
         job=coroutineScope.launch {
-          noteRepo.deleteNote(note)
+          _noteRepo.deleteNote(note)
             loadNotes()
 
         }

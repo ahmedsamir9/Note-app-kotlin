@@ -60,4 +60,17 @@ dependencies {
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     //expendablelayout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    //koin
+    def koin_version= "2.1.6"
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koin_version"
+    // Koin Extended & experimental features
+    implementation "org.koin:koin-core-ext:$koin_version"
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+    // Koin AndroidX Scope feature
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+
+    // Koin AndroidX ViewModel feature
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 }

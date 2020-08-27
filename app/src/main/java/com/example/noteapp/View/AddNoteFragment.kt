@@ -1,7 +1,6 @@
 package com.example.noteapp.View
 
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.example.noteapp.Model.Note
 
 import com.example.noteapp.R
 import com.example.noteapp.ViewModel.AddNoteViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddNoteFragment : Fragment() ,View.OnClickListener{
     lateinit var navController: NavController
@@ -23,7 +23,7 @@ class AddNoteFragment : Fragment() ,View.OnClickListener{
         fun newInstance() = AddNoteFragment()
     }
 
-    private lateinit var viewModel: AddNoteViewModel
+    private val addNoteViewModel: AddNoteViewModel by viewModel<AddNoteViewModel>()
   lateinit var title:EditText
     lateinit var dec:EditText
     lateinit var per :EditText
@@ -36,11 +36,6 @@ class AddNoteFragment : Fragment() ,View.OnClickListener{
         return inflater.inflate(R.layout.add_note_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddNoteViewModel::class.java)
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +64,7 @@ class AddNoteFragment : Fragment() ,View.OnClickListener{
                 val string = per.text.toString()
                 note = Note(0,title.text.toString(),dec.text.toString(),string.toInt())
             }
-            viewModel.addNote(note!!)
+            addNoteViewModel.addNote(note!!)
             Toast.makeText(view.context,"added",Toast.LENGTH_SHORT).show()
            navController.popBackStack()
         }
@@ -91,7 +86,7 @@ class AddNoteFragment : Fragment() ,View.OnClickListener{
                     val string = per.text.toString()
                     note = Note(0,title.text.toString(),dec.text.toString(),string.toInt())
                 }
-                viewModel.addNote(note!!)
+                addNoteViewModel.addNote(note!!)
                 Toast.makeText(view!!.context,"added",Toast.LENGTH_SHORT).show()
                 navController.popBackStack()
             }

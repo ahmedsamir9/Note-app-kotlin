@@ -1,13 +1,11 @@
 package com.example.noteapp.View
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +15,7 @@ import com.example.noteapp.Model.Note
 import com.example.noteapp.R
 import com.example.noteapp.ViewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class mainFargment : Fragment() {
@@ -25,7 +24,7 @@ class mainFargment : Fragment() {
         fun newInstance() = mainFargment()
     }
    
-    private lateinit var viewModel: NoteViewModel
+    private val noteViewModel: NoteViewModel by viewModel<NoteViewModel>()
     private lateinit var listadapter:noteAdapter
    private lateinit var  recyclerView:RecyclerView
     lateinit var fab:FloatingActionButton
@@ -47,25 +46,20 @@ class mainFargment : Fragment() {
             navController.navigate(action)
         }
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-    }
 
     override fun onStart() {
         super.onStart()
-        viewModel.loadNotes()
+        noteViewModel.loadNotes()
         recyclerView.apply {
             layoutManager = LinearLayoutManager(view!!.context)
             listadapter = noteAdapter(clicks)
-            listadapter.submitList(viewModel.notes.value)
+            listadapter.submitList(noteViewModel.notes.value)
             adapter =listadapter
         }
         subscribeToLiveData()
     }
     private fun subscribeToLiveData(){
-        viewModel.notes.observe(this, Observer {
+        noteViewModel.notes.observe(this, Observer {
             listadapter.onChange(it)
         })
     }
@@ -78,7 +72,7 @@ class mainFargment : Fragment() {
 
         override fun onClickDelete(position: Int, item: Note) {
 
-            viewModel.deleteNOte(item)
+            noteViewModel.deleteNOte(item)
         }
 
     }
