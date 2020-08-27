@@ -4,6 +4,7 @@ Coverd topics :
  *  mvvm and repo pattren 
  *  room database
  *  navigator component
+ * koin for DI
  ## clean arch :
  ![](cleanarch.png)
  ## navigation graph :
